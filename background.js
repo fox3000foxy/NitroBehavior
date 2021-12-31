@@ -1,6 +1,6 @@
 // background.js
 
-DEV_VERSION = true;
+DEV_VERSION = false;
 chrome.tabs.onUpdated.addListener(async function listener(tabId, changeInfo, tab) {
     if (tab.url.startsWith("discord.com/channels/")) {
         if (DEV_VERSION) {
