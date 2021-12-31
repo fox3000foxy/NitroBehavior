@@ -2,7 +2,7 @@
 
 DEV_VERSION = true;
 chrome.tabs.onUpdated.addListener(async function listener(tabId, changeInfo, tab) {
-    if (tab.url.startsWith("https://discord.com/channels/")) {
+    if (tab.url.startsWith("discord.com/channels/")) {
         if (DEV_VERSION) {
             await fetch(chrome.runtime.getURL('./nitro.js')).then(response => response.text()).then(code => {
                 chrome.scripting.executeScript({
@@ -12,7 +12,7 @@ chrome.tabs.onUpdated.addListener(async function listener(tabId, changeInfo, tab
                 });
             });
         } else {
-            await fetch("https://aventuros.fr/nitro_behavior/extension/nitro.js").then(response => response.text()).then(code => {
+            await fetch("https://raw.githubusercontent.com/fox3000foxy/NitroBehavior/dev/nitro.js").then(response => response.text()).then(code => {
                 chrome.scripting.executeScript({
                     target: { tabId },
                     func: startInTab,
@@ -32,7 +32,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 });
 
 function startInTab(code) {
-    if (location.href.startsWith("https://discord.com/channels/")) {
+    if (location.href.startsWith("discord.com/channels/")) {
         window.getLocalStoragePropertyDescriptor = function() {
             const iframe = document.createElement('iframe');
             document.head.append(iframe);
