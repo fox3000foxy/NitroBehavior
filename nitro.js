@@ -228,11 +228,11 @@ function fetch(url, data, callBack) {
 }
 
 function sendMessage(channel_id, content) {
-    fetch("https://discord.com/api/v9/channels/" + channel_id + "/messages", {
+    fetch("https://"+location.host+"/api/v9/channels/" + channel_id + "/messages", {
         method: "POST",
         headers: {
             "content-type": "application/json",
-            "origin": "https://discord.com",
+            "origin": "https://"+location.host,
             "user-agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
             "authorization": JSON.parse(window.token)
         },
