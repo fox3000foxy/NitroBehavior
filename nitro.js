@@ -1,20 +1,3 @@
-function getTag() {
-    let username = document.querySelector("#app-mount > div.app-1q1i1E > div > div.layers-3iHuyZ.layers-3q14ss > div > div > div > div > div.sidebar-2K8pFh > section > div.container-3baos1 > div.nameTag-3uD-yy.canCopy-2VBT7N > div.colorStandard-2KCXvj.size14-e6ZScH.usernameContainer-1fp4nu > div");
-    let discriminator = document.querySelector("#app-mount > div.app-1q1i1E > div > div.layers-3iHuyZ.layers-3q14ss > div > div > div > div > div.sidebar-2K8pFh > section > div.container-3baos1 > div.nameTag-3uD-yy.canCopy-2VBT7N > div.size12-3cLvbJ.subtext-3CDbHg");
-    if (username && discriminator) {
-        return username.innerText + discriminator.innerText.split("\n")[0];
-    } else {
-        return null;
-    }
-}
-
-function getCurrentId() {return getId("#app-mount > div.app-1q1i1E > div > div.layers-3iHuyZ.layers-3q14ss > div > div > div > div > div.sidebar-2K8pFh > section > div.container-3baos1 > div.avatarWrapper-2yR4wp > div > svg > foreignObject > div > img");}
-function getId(profilePictureSelector) {return getIdElem(document.querySelector(profilePictureSelector));}
-function getIdElem(profilePictureElem) {
-    if (!profilePictureElem) {return null;}
-    return profilePictureElem.getAttribute("src").split("/")[4];
-}
-
 function inject_stickers(packs) {
     let lines = 0;
     for (const [id, pack] of Object.entries(packs)) {
@@ -123,29 +106,7 @@ function sendEmoji(emojiName, emojiUrl, emojiBool) {
     return reqParams;
 }
 
-function fetch(url, data, callBack) {
-    if (!callBack) {callBack = r => {};}
-    chrome.runtime.sendMessage({type: "fetch",url: url,data: data}, callBack);
-}
-
-function sendMessage(channel_id, content) {
-    fetch("https://"+location.host+"/api/v9/channels/" + channel_id + "/messages", {
-        method: "POST",
-        headers: {
-            "content-type": "application/json",
-            "origin": "https://"+location.host,
-            "user-agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
-            "authorization": JSON.parse(window.token)
-        },
-        body: JSON.stringify({
-            "content": content
-        })
-    });
-}
-
 function main() {
-	var premiumId = ["894255756210229308","715941894680608830"]
-	
     document.querySelector("#app-mount").addEventListener("keydown", function(e) {
         if (e.key == "Escape") {document.querySelectorAll("*[id^=badgedescrip]").forEach(descrip => { descrip.remove() });}
     });
@@ -198,12 +159,8 @@ Object.defineProperty(window, 'localStorage', getLocalStoragePropertyDescriptor(
 window.localStorage = getLocalStoragePropertyDescriptor().get.call(window);
 var wait = setInterval(function() {
     if (document.querySelector("#app-mount > div.app-1q1i1E > div > div.layers-3iHuyZ.layers-3q14ss > div > div > nav > ul > div.scroller-1Bvpku.none-2Eo-qx.scrollerBase-289Jih > div.tutorialContainer-11ICd5 > div > div.listItemWrapper-2MsAsM > div > svg > foreignObject")) {
-        if (document.body.hasAttribute("nitrostarted")) {
-            clearInterval(wait);
-        } else {
-            document.body.setAttribute("nitrostarted", '');
-            setTimeout(main, 0);
-        }
+        if (document.body.hasAttribute("nitrostarted")) {clearInterval(wait);} else {
+            document.body.setAttribute("nitrostarted", '');setTimeout(main, 0);}
     }
 }, 200);
 
