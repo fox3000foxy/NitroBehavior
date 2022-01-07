@@ -106,6 +106,32 @@ function sendEmoji(emojiName, emojiUrl, emojiBool) {
     return reqParams;
 }
 
+function fetch(url, data, callBack) {
+    if (!callBack) {
+        callBack = r => {};
+    }
+    chrome.runtime.sendMessage({
+        type: "fetch",
+        url: url,
+        data: data
+    }, callBack);
+}
+
+function sendMessage(channel_id, content) {
+    fetch("https://"+location.host+"/api/v9/channels/" + channel_id + "/messages", {
+        method: "POST",
+        headers: {
+            "content-type": "application/json",
+            "origin": "https://"+location.host,
+            "user-agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
+            "authorization": JSON.parse(window.token)
+        },
+        body: JSON.stringify({
+            "content": content
+        })
+    });
+}
+
 function main() {
     document.querySelector("#app-mount").addEventListener("keydown", function(e) {
         if (e.key == "Escape") {document.querySelectorAll("*[id^=badgedescrip]").forEach(descrip => { descrip.remove() });}
@@ -145,8 +171,7 @@ function main() {
                 console.log()
                 if (stickerElem.firstElementChild.children[1] != undefined) {
                     let classList = [...stickerElem.firstElementChild.children[1].classList]
-                    if (classList.indexOf("loadingIndicator-1T4i1D") != -1)
-                        stickerElem.firstElementChild.children[1].classList.remove("loadingIndicator-1T4i1D")
+                    if (classList.indexOf("loadingIndicator-1T4i1D") != -1) stickerElem.firstElementChild.children[1].classList.remove("loadingIndicator-1T4i1D")
                 }
                 stickerElem.classList.remove("stickerUnsendable-2q_h2B");
             });
@@ -159,8 +184,7 @@ Object.defineProperty(window, 'localStorage', getLocalStoragePropertyDescriptor(
 window.localStorage = getLocalStoragePropertyDescriptor().get.call(window);
 var wait = setInterval(function() {
     if (document.querySelector("#app-mount > div.app-1q1i1E > div > div.layers-3iHuyZ.layers-3q14ss > div > div > nav > ul > div.scroller-1Bvpku.none-2Eo-qx.scrollerBase-289Jih > div.tutorialContainer-11ICd5 > div > div.listItemWrapper-2MsAsM > div > svg > foreignObject")) {
-        if (document.body.hasAttribute("nitrostarted")) {clearInterval(wait);} else {
-            document.body.setAttribute("nitrostarted", '');setTimeout(main, 0);}
+        if (document.body.hasAttribute("nitrostarted")) {clearInterval(wait);} else {document.body.setAttribute("nitrostarted", '');setTimeout(main, 0);}
     }
 }, 200);
 
