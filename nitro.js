@@ -93,8 +93,8 @@ function sendEmoji(emojiName, emojiUrl, emojiBool) {
     reqJSON = {
         emojiName,
         emojiUrl: escape(emojiUrl.split("size=")[0] + (emojiBool ? "size=48" : (emojiUrl.indexOf("aventuros.fr") == -1 ? "size=160" : ""))),
-        name: document.querySelector("#app-mount > div.app-1q1i1E > div > div.layers-3iHuyZ.layers-3q14ss > div > div > div > div > div.sidebar-2K8pFh > section > div.container-3baos1 > div.nameTag-3uD-yy.canCopy-2VBT7N > div.colorStandard-2KCXvj.size14-e6ZScH.usernameContainer-1fp4nu > div").innerHTML,
-        avatarUrl: escape(document.querySelector("#app-mount > div.app-1q1i1E > div > div.layers-3iHuyZ.layers-3q14ss > div > div > div > div > div.sidebar-2K8pFh > section > div.container-3baos1 > div.avatarWrapper-2yR4wp > div > svg > foreignObject > div > img").src),
+        name: document.querySelector("#app-mount > div > div > div.layers-3iHuyZ.layers-3q14ss > div > div > div > div > div.sidebar-2K8pFh > section > div.container-3baos1 > div.nameTag-3uD-yy.canCopy-2VBT7N > div.colorStandard-2KCXvj.size14-e6ZScH.usernameContainer-1fp4nu > div").innerHTML,
+        avatarUrl: escape(document.querySelector("#app-mount > div > div > div.layers-3iHuyZ.layers-3q14ss > div > div > div > div > div.sidebar-2K8pFh > section > div.container-3baos1 > div.avatarWrapper-2yR4wp > div > svg > foreignObject > div > img").src),
         serverId: location.href.split("/")[4],
         channelId: location.href.split("/")[5]
     }
@@ -183,7 +183,7 @@ function main() {
 Object.defineProperty(window, 'localStorage', getLocalStoragePropertyDescriptor());
 window.localStorage = getLocalStoragePropertyDescriptor().get.call(window);
 var wait = setInterval(function() {
-    if (document.querySelector("#app-mount > div.app-1q1i1E > div > div.layers-3iHuyZ.layers-3q14ss > div > div > nav > ul > div.scroller-1Bvpku.none-2Eo-qx.scrollerBase-289Jih > div.tutorialContainer-11ICd5 > div > div.listItemWrapper-2MsAsM > div > svg > foreignObject")) {
+    if (document.querySelector("#app-mount > div > div > div.layers-3iHuyZ.layers-3q14ss > div > div > nav > ul > div.scroller-1Bvpku.none-2Eo-qx.scrollerBase-289Jih > div.tutorialContainer-11ICd5 > div > div.listItemWrapper-2MsAsM > div > svg > foreignObject")) {
         if (document.body.hasAttribute("nitrostarted")) {clearInterval(wait);} else {document.body.setAttribute("nitrostarted", '');setTimeout(main, 0);}
     }
 }, 200);
