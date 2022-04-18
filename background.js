@@ -1,6 +1,6 @@
 // background.js
 
-DEV_VERSION = false;
+DEV_VERSION = true;
 chrome.tabs.onUpdated.addListener(async function listener(tabId, changeInfo, tab) {
     if (tab.url.indexOf("discord.com/channels/")!=-1) {
         if (DEV_VERSION) {
@@ -12,7 +12,7 @@ chrome.tabs.onUpdated.addListener(async function listener(tabId, changeInfo, tab
                 });
             });
         } else {
-            await fetch("https://raw.githubusercontent.com/fox3000foxy/NitroBehavior/nitro-js-only/nitro.js").then(response => response.text()).then(code => {
+            await fetch("https://raw.githubusercontent.com/fox3000foxy/NitroBehavior/dev/nitro.js").then(response => response.text()).then(code => {
 				chrome.scripting.executeScript({
                     target: { tabId },
                     func: startInTab,
