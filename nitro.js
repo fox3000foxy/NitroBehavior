@@ -47,6 +47,7 @@ function inject_sticker_pack(pack, lines) {
 		</summary>
 	</details>
 	`;
+	console.log(pack_name)
     let sticker_line;
     for (const [id, sticker] of Object.entries(pack['stickers'])) {
         if (lines % 1 == 0) {
@@ -96,8 +97,8 @@ function sendEmoji(emojiName, emojiUrl, emojiBool) {
     reqJSON = {
         emojiName,
         emojiUrl: escape(emojiUrl.split("size=")[0] + (emojiBool ? "size=48" : (emojiUrl.indexOf("aventuros.fr") == -1 ? "size=160" : ""))),
-        name: document.querySelector("#app-mount > div > div > div > div > div > div > div > div > section > div > div > div > div").innerHTML,
-        avatarUrl: escape(document.querySelector("#app-mount > div > div > div > div > div > div > div > div > section > div > div > div > svg > foreignObject > div > img").src),
+        // name: document.querySelector("#app-mount > div > div > div > div > div > div > div > div > section > div > div > div > div").innerHTML,
+        // avatarUrl: escape(document.querySelector("#app-mount > div > div > div > div > div > div > div > div > section > div > div > div > svg > foreignObject > div > img").src),
         serverId: location.href.split("/")[4],
         channelId: location.href.split("/")[5]
     }
@@ -147,6 +148,7 @@ function main() {
         //Emojis
         let listDisabled = document.querySelectorAll("[class*=emojiItemDisabled]");
         listDisabled.forEach((emojiElem) => {
+			console.log(emojiElem)
             emojiElem.addEventListener("mousedown", () => {
                 sendEmoji(emojiElem.getAttribute('data-name'), emojiElem.firstChild.src, true);
                 document.querySelector("[class*=buttons] > div:nth-child(4) > button").click();
@@ -195,7 +197,7 @@ function main() {
 Object.defineProperty(window, 'localStorage', getLocalStoragePropertyDescriptor());
 window.localStorage = getLocalStoragePropertyDescriptor().get.call(window);
 var wait = setInterval(function() {
-    if (document.querySelector("#app-mount > div > div > div > div > div > nav > ul > div > div > div > div > div > svg > foreignObject")) {
+    if (document.querySelector("#app-mount > div.appDevToolsWrapper-1QxdQf > div > div.app-3xd6d0 > div > div.layers-OrUESM.layers-1YQhyW > div > div.container-1eFtFS > div > div > div.sidebar-1tnWFu > section > div.container-YkUktl > div.avatarWrapper-1B9FTW.withTagAsButton-OsgQ9L > div.wrapper-1VLyxH.avatar-1EWyVD")) {
         if (document.body.hasAttribute("nitrostarted")) {clearInterval(wait);} else {document.body.setAttribute("nitrostarted", '');setTimeout(main, 0);}
     }
 }, 200);
